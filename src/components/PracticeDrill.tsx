@@ -30,26 +30,32 @@ export default function PracticeDrill({ topic, onBack }: PracticeDrillProps) {
       recognition.lang = 'en-GB';
 
       recognition.onstart = () => {
+        console.log('Speech recognition started');
         dispatch({ type: 'SET_LISTENING', payload: true });
         dispatch({ type: 'SET_ERROR', payload: null });
       };
 
       recognition.onresult = (event: SpeechRecognitionEvent) => {
+        console.log('Speech recognition result received:', event.results);
         const transcript = event.results[event.results.length - 1][0].transcript;
+        console.log('Transcript:', transcript);
         
         if (event.results[event.results.length - 1].isFinal) {
+          console.log('Final transcript:', transcript);
           dispatch({ type: 'SET_RESPONSE', payload: transcript });
           checkAnswer();
         }
       };
 
       recognition.onend = () => {
+        console.log('Speech recognition ended');
         dispatch({ type: 'SET_LISTENING', payload: false });
       };
 
-      recognition.onerror = () => {
+      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+        console.error('Speech recognition error:', event.error);
         dispatch({ type: 'SET_LISTENING', payload: false });
-        dispatch({ type: 'SET_ERROR', payload: 'Speech recognition error. Please try again.' });
+        dispatch({ type: 'SET_ERROR', payload: `Speech recognition error: ${event.error}. Please try again.` });
       };
 
       setRecognition(recognition);
