@@ -27,7 +27,7 @@ export default function PracticeDrill({ topic, onBack }: PracticeDrillProps) {
       const recognition = new window.webkitSpeechRecognition();
       recognition.continuous = false;
       recognition.interimResults = true;
-      recognition.lang = 'en-US';
+      recognition.lang = 'en-GB';
 
       recognition.onstart = () => {
         dispatch({ type: 'SET_LISTENING', payload: true });
@@ -175,6 +175,16 @@ export default function PracticeDrill({ topic, onBack }: PracticeDrillProps) {
           )}
 
           <div className="flex justify-center gap-4 mt-4">
+            <button
+              onClick={() => {
+                const speech = new SpeechSynthesisUtterance(state.currentSentence);
+                speech.lang = 'en-GB';
+                window.speechSynthesis.speak(speech);
+              }}
+              className="btn-secondary flex items-center gap-2"
+            >
+              🔊 Listen
+            </button>
             <button
               onClick={handleListen}
               className="btn-primary"
