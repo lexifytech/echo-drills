@@ -1,9 +1,5 @@
 /// <reference types="vite/client" />
 
-declare module 'string-similarity' {
-  export function compareTwoStrings(str1: string, str2: string): number;
-}
-
 interface Window {
   webkitSpeechRecognition: typeof SpeechRecognition;
 }
@@ -12,10 +8,10 @@ declare class SpeechRecognition extends EventTarget {
   continuous: boolean;
   interimResults: boolean;
   lang: string;
-  onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
-  onend: ((this: SpeechRecognition, ev: Event) => any) | null;
-  onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
-  onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+  onstart: ((this: SpeechRecognition, ev: Event) => void) | null;
+  onend: ((this: SpeechRecognition, ev: Event) => void) | null;
+  onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => void) | null;
+  onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => void) | null;
   abort(): void;
   start(): void;
   stop(): void;

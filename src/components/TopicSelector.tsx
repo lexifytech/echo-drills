@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import type { GrammarTopic } from '../types/grammar';
+import type { SentenceCollection } from '../types/sentences';
 
 type TopicSelectorProps = {
-  topics: GrammarTopic[];
-  onSelectTopic: (topic: GrammarTopic) => void;
+  topics: SentenceCollection[];
+  onSelectTopic: (topic: string) => void;
 };
 
-export function TopicSelector({ topics, onSelectTopic }: TopicSelectorProps) {
+export default function TopicSelector({ topics, onSelectTopic }: TopicSelectorProps) {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <h1 className="text-4xl font-bold text-center text-dark-text">
@@ -15,21 +15,21 @@ export function TopicSelector({ topics, onSelectTopic }: TopicSelectorProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {topics.map((topic, index) => (
           <motion.div
-            key={topic.id}
+            key={topic.topic}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
             className="card hover:scale-105 transition-transform cursor-pointer"
-            onClick={() => onSelectTopic(topic)}
+            onClick={() => onSelectTopic(topic.topic)}
           >
-            <h2 className="text-2xl font-bold mb-2">{topic.title}</h2>
+            <h2 className="text-2xl font-bold mb-2">{topic.topic}</h2>
             <p className="text-dark-muted mb-4">{topic.description}</p>
             <div className="flex items-center justify-between">
               <span className="text-dark-muted">
-                {topic.sentences.length} practice sentences
+                {topic.sentences.length} sentences
               </span>
               <button className="btn-primary">
-                Start Practice
+                Start
               </button>
             </div>
           </motion.div>
